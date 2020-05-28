@@ -12,6 +12,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+/*
+<speck>
+#### Content Discovery
+</speck>
+*/
 var test03ContentDiscovery = func() {
 	g.Context(titleContentDiscovery, func() {
 

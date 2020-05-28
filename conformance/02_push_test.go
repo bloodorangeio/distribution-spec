@@ -9,6 +9,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+/*
+<speck>
+#### Push
+</speck>
+*/
 var test02Push = func() {
 	g.Context(titlePush, func() {
 

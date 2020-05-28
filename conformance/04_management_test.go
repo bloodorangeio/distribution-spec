@@ -9,6 +9,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+/*
+<speck>
+#### Content Management
+</speck>
+*/
 var test04ContentManagement = func() {
 	g.Context(titleContentManagement, func() {
 
