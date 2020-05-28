@@ -3,3 +3,6 @@
 output
 header.html
 tags
+bin/
+speck/
+spec-new.md
