@@ -1,7 +1,6 @@
 package conformance
 
-/*
-<speck>
+/*<speck>
 ## Conformance
 
 ### Minimum Requirements
@@ -23,8 +22,7 @@ please use the [conformance testing tool](https://github.com/opencontainers/dist
 
 Registry providers can self-cetify by submitting conformance results to
 [opencontainers/oci-conformance](https://github.com/opencontainers/oci-conformance).
-</speck>
-*/
+</speck>*/
 
 import (
 	"testing"
@@ -36,11 +34,9 @@ import (
 
 func TestConformance(t *testing.T) {
 	g.Describe(suiteDescription, func() {
-		/*
-		<speck tab=2>
+		/*<speck tab=2>
 		### Workflow Categories
-		</speck>
-		*/
+		</speck>*/
 		test01Pull()
 		test02Push()
 		test03ContentDiscovery()
