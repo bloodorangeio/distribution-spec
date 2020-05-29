@@ -98,7 +98,7 @@ $(OUTPUT_DIRNAME)/conformance.test:
 
 build-spec: spec-new.md
 	if [ ! -f bin/speck ]; then \
-  		rm -rf speck/ && git clone --branch v0.1.0 https://github.com/bloodorangeio/speck.git && \
+		rm -rf speck/ && git clone --branch v0.1.2 https://github.com/bloodorangeio/speck.git && \
 		(cd speck && go build -o ../bin/speck speck.go) && \
 		rm -rf speck/; \
 	fi
