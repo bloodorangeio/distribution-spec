@@ -26,12 +26,25 @@ const (
   <head>
     <title>OCI Distribution Conformance Tests</title>
     <style>
-	  body {
+	  	body {
         padding: 10px 20px 10px 20px;
         font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
         background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQYV2Pce7zwv7NlPyMDFMAZGAIwlRgqAFydCAVv5m4UAAAAAElFTkSuQmCC") repeat;
-		// background made with http://www.patternify.com/
+		    /* background made with http://www.patternify.com/ */
       }
+			table {
+			  border-collapse: collapse;
+			  width: 100%;
+			  background-color: white;
+			}
+			th, td {
+			  padding: 12px;
+			  text-align: left;
+			  border-bottom: 1px solid #ddd;
+			}
+			tr:hover {
+				background-color: #ffe39b;
+			}
       .result {
         padding: 1.25em 0 .25em 0.8em;
         border: 1px solid #e1e1e1;
@@ -86,7 +99,7 @@ const (
         overflow-y: auto;
       }
 	  .summary {
-		width: 75%;
+		width: 100%;
 		height: auto;
 		padding: 0 0 .5em 0;
 		border-radius: 6px;
@@ -97,17 +110,18 @@ const (
 		width: 100%;
 		height: auto;
 		display: flex;
+		flex-wrap: wrap;
 		padding: .5em .1em .1em .5em;
 	  }
 	  .bullet-left {
-		width: 20%;
+		width: 25%;
 		font-weight: bold;
-		font-size: 1.1em;
+		font-size: 100%;
 	  }
 	  .bullet-right {
 		width: auto;
 		font-family: monospace;
-		font-size: 1.2em;
+		font-size: 110%;
 	  }
 	  .quick-summary {
 		width: 70%;
@@ -178,54 +192,59 @@ const (
   </head>
 <body>
 	<h1>OCI Distribution Conformance Tests</h1>
-	<div class="summary">
-		<div class="summary-bullet">
-			<div class="bullet-left">Summary:</div>
-			<div class="quick-summary">
-				{{- if gt .SuiteSummary.NumberOfPassedSpecs 0 -}}
-					<span class="darkgreen">
-					{{- if .AllPassed -}}All {{ end -}}{{ .SuiteSummary.NumberOfPassedSpecs }} passed</span>
-				{{- end -}}
-				{{- if gt .SuiteSummary.NumberOfFailedSpecs 0 -}}
-					<span class="darkred">
-					{{- if .AllFailed -}}All {{ end -}}{{ .SuiteSummary.NumberOfFailedSpecs }} failed</span>
-				{{- end -}}
-				{{- if gt .SuiteSummary.NumberOfSkippedSpecs 0 -}}
-					<span class="darkgrey">
-					{{- if .AllSkipped -}}All {{ end -}}{{ .SuiteSummary.NumberOfSkippedSpecs }} skipped</span>
-				{{- end -}}
-				<div class="meter">
-					<div class="meter-green"></div>
-					<div class="meter-red"></div>
-					<div class="meter-grey"></div>
+	<table>
+	  <tr>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">Summary</td>
+	    <td>
+				<div class="quick-summary">
+					{{- if gt .SuiteSummary.NumberOfPassedSpecs 0 -}}
+						<span class="darkgreen">
+						{{- if .AllPassed -}}All {{ end -}}{{ .SuiteSummary.NumberOfPassedSpecs }} passed</span>
+					{{- end -}}
+					{{- if gt .SuiteSummary.NumberOfFailedSpecs 0 -}}
+						<span class="darkred">
+						{{- if .AllFailed -}}All {{ end -}}{{ .SuiteSummary.NumberOfFailedSpecs }} failed</span>
+					{{- end -}}
+					{{- if gt .SuiteSummary.NumberOfSkippedSpecs 0 -}}
+						<span class="darkgrey">
+						{{- if .AllSkipped -}}All {{ end -}}{{ .SuiteSummary.NumberOfSkippedSpecs }} skipped</span>
+					{{- end -}}
+					<div class="meter">
+						<div class="meter-green"></div>
+						<div class="meter-red"></div>
+						<div class="meter-grey"></div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="summary-bullet">
-			<div class="bullet-left">Start time:</div>
-			<div class="bullet-right">{{ .StartTimeString }}</div>
-		</div>
-		<div class="summary-bullet">
-			<div class="bullet-left">End time:</div>
-			<div class="bullet-right">{{ .EndTimeString }}</div>
-		</div>
-		<div class="summary-bullet">
-			<div class="bullet-left">Elapsed time:</div>
-			<div class="bullet-right">{{ .RunTime }}</div>
-		</div>
-		<div class="summary-bullet">
-			<div class="bullet-left">Test version:</div>
-			<div class="bullet-right">{{ .Version }}</div>
-		</div>
-		<div class="summary-bullet">
-			<div class="bullet-left">Configuration:</div>
-			<div class="bullet-right">
+			</td>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">Start Time</td>
+	    <td>{{ .StartTimeString }}</td>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">End Time</td>
+	    <td>{{ .EndTimeString }}</td>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">Time Elapsed</td>
+	    <td>{{ .RunTime }}</td>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">Test Version</td>
+	    <td>{{ .Version }}</td>
+	  </tr>
+	  <tr>
+	    <td class="bullet-left">Configuration</td>
+	    <td><div class="bullet-right">
 				{{ range $i, $s := .EnvironmentVariables }}
 				  {{ $s }}<br />
 				{{ end }}
-			</div>
-		</div>
-	</div>
+			</div></td>
+	  </tr>
+	</table>
+
 	<div>
     {{with .Suite}}
       {{$suite := .M}}
