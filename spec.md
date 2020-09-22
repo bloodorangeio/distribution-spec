@@ -7,8 +7,8 @@
 	- [Historical Context](#historical-context)
 	- [Definitions](#defintions)
 - [Use Cases](#use-cases)
+- [Notational Conventions](#notational-conventions)
 - [Conformance](#conformance)
-	- [Notational Conventions](#notational-conventions)
 	- [Minimum Requirements](#minimum-requirements)
 	- [Official Certification](#official-certification)
 	- [Workflow Categories](#workflow-categories)
@@ -29,10 +29,10 @@
 The **Open Container Initiative Distribution Specification** (a.k.a. "OCI Distribution Spec") defines an API protocol to facilitate and standardize the distribution of content.
 
 While this specification is designed to be agnostic to content types, much of it is centered around the distribution of container images.
-Many of the concepts here, such as "manifests" and "digests", are originally defined in the [Open Container Initiative Image Format Specification]() (a.k.a. "OCI Image Spec"),
+Many of the concepts here, such as "manifests" and "digests", are originally defined in the [Open Container Initiative Image Format Specification](https://github.com/opencontainers/image-spec) (a.k.a. "OCI Image Spec"),
 and the OCI Image is considered to be the primary supported artifact type.
 
-For guidance on how to apply this specification to a other artifact types, please see the [Open Container Initiative Artifact Authors Guide](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md) (a.k.a. "OCI Artifacts").
+For guidance on how to apply this specification to other artifact types, please see the [Open Container Initiative Artifact Authors Guide](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md) (a.k.a. "OCI Artifacts").
 
 ### Historical Context
 
@@ -58,6 +58,10 @@ Several terms are used frequently in this document and warrant basic definitions
 - **Artifact**: one conceptual piece of content stored as Blobs with an accompanying Manifest containing a Config
 - **Digest**: a unique identifier created from a cryptographic hash of a Blob's content. Digests are defined under the OCI Image Spec ([apdx-3](#appendix))
 - **Tag**: a custom, human-readable Manifest identifier
+
+## Notational Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119) (Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997).
 
 ## Use Cases
 
@@ -95,10 +99,6 @@ If process A and B upload the same layer at the same time, both operations will 
 ## Conformance
 TODO: add general text about artifact validation requirements
 
-### Notational Conventions
-
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119) (Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997).
-
 ### Requirements
 
 Registries conforming to this specification MUST handle all APIs required by the following workflow categories:
@@ -119,7 +119,7 @@ Registry providers can self-certify by submitting conformance results to [openco
 #### Pull
 The process of pulling an artifact centers around retrieving two components: the manifest and one or more blobs.
 
-The first step in pulling an artifact is to retrieve the manifest.
+Typically, the first step in pulling an artifact is to retrieve the manifest. However, you MAY retrieve content from the registry in any order.
 
 ##### Pulling manifests
 
@@ -140,14 +140,14 @@ To pull a blob, perform a `GET` request to a url in the following form:
 
 `<name>` is the namespace of the repository, and `<digest>` is the blob's digest.
 
-A GET request to an existing blob URL MUST provide the expected blob, with a reponse code that MUST be `200 OK`.
+A GET request to an existing blob URL MUST provide the expected blob, with a response code that MUST be `200 OK`.
 
 If the blob is not found in the registry, the response code MUST be `404 Not Found`.
 
 
 #### Push
-Pushing an artifact works in the opposite order as a pull: the blobs making up the layers are pushed first, and the
-manifest last.
+Pushing an artifact typically works in the opposite order as a pull: the blobs making up the artifact are uploaded first, and the
+manifest last. However, this order is not required, and you MAY upload content to the registry in any order.
 
 ##### Pushing blobs
 
@@ -257,7 +257,7 @@ Content-Length: <length>
 
 The `<location>` refers to the URL obtained from the preceding `POST` request.
 
-The `<range>` refers to the byte range of the chunk, and MUST be inclusive on both ends.  The first chunk's range MUST begin with `0`. It MUST match the following regular expression:
+The `<range>` refers to the byte range of the chunk, and MUST be inclusive on both ends. The first chunk's range MUST begin with `0`. It MUST match the following regular expression:
 
 ```regexp
 ^[0-9]+-[0-9]+$
@@ -315,7 +315,7 @@ Content-Type: application/vnd.oci.image.manifest.v1+json
 
 `<name>` is the namespace of the repository, and the `<reference>` MUST be either a) a digest or b) a tag.
 
-The uploaded manifest MUST reference any layers that make up the artifact. However, the layers field MAY
+The uploaded manifest MUST reference any blobs that make up the artifact. However, the list of blobs MAY
 be empty. Upon a successful upload, the registry MUST return response code `201 Created`, and MUST have the
 following header:
 
@@ -475,6 +475,6 @@ The following is a list of documents referenced in this spec:
 | ID     | Title | Description |
 | ------ | ----- | ----------- |
 | apdx-1 | [Docker Registry HTTP API V2](https://github.com/docker/distribution/blob/5cb406d511b7b9163bff9b6439072e4892e5ae3b/docs/spec/api.md) | The original document upon which this spec was based |
-| apdx-1 | [Details](./detail.md) | Historical document describing original API endpoints and requests in detail |
+| apdx-1 | [Details](./detail.md) | Historical document describing original API endpoints and requests in detail (warning: some of this information may be out-of-date or not yet implemented) |
 | apdx-2 | [OCI Image Spec - manifests](https://github.com/opencontainers/image-spec/blob/v1.0.1/manifest.md) | Description of manifests, defined by the OCI Image Spec |
 | apdx-3 | [OCI Image Spec - digests](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md#digests) | Description of digests, defined by the OCI Image Spec |
