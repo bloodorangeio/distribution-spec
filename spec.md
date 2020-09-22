@@ -26,7 +26,13 @@
 
 ### Introduction
 
-The **Open Container Initiative Distribution Specification** (a.k.a. "OCI Distribution Spec") defines an API protocol to facilitate and standardize the distribution of content, especially related to container images and associated artifacts.
+The **Open Container Initiative Distribution Specification** (a.k.a. "OCI Distribution Spec") defines an API protocol to facilitate and standardize the distribution of content.
+
+While this specification is designed to be agnostic to content types, much of it is centered around the distribution of container images.
+Many of the concepts here, such as "manifests" and "digests", are originally defined in the [Open Container Initiative Image Format Specification]() (a.k.a. "OCI Image Spec"),
+and the OCI Image is considered to be the primary supported artifact type.
+
+For guidance on how to apply this specification to a other artifact types, please see the [Open Container Initiative Artifact Authors Guide](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md) (a.k.a. "OCI Artifacts").
 
 ### Historical Context
 
