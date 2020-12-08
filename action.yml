@@ -8,4 +8,4 @@ inputs: {}
 outputs: {}
 runs:
   using: docker
-  image: conformance/Dockerfile
+  image: ghcr.io/bloodorangeio/distribution-spec/conformance:34e8255
