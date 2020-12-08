@@ -8,4 +8,4 @@ inputs: {}
 outputs: {}
 runs:
   using: docker
-  image: ghcr.io/bloodorangeio/distribution-spec/conformance:34e8255
+  image: docker://ghcr.io/bloodorangeio/distribution-spec/conformance:34e8255
