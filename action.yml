@@ -4,8 +4,60 @@ author: The Linux Foundation
 branding:
   color: blue
   icon: check-circle
-inputs: {}
+inputs: 
+  - namespace:
+      description: 'The uploadable namespace to use for the tests'
+      required: true
+  - root-url:
+      description: 'The root URL of the repository to be tested (ex. https://bundle.bar)'
+      required: true
+  - crossmount-namespace: 
+      description: 'A second namespace to be used in cross-mount tests. No need to supply if registry supports auto-creation of namespaces'
+      required: false
+  - username:
+      description: 'The username that will be used to log in'
+      required: true
+  - password:
+      description: 'The password that will be used to log in'
+      required: true
+  - test-pull:
+      description: 'Setting this to "1" will enable the pull test'
+      required: false
+  - test-push:
+      description: 'Setting this to "1" will enable the push test'
+      required: false
+  - test-content-discovery:
+      description: 'Setting this to "1" will enable the content discovery test'
+      required: false
+  - test-content-management:
+      description: 'Setting this to "1" will enable the content management test'
+      required: false
+  - hide-skipped-workflows:
+      required: false
+  - delete-manifest-before-blobs:
+      required: false
+  - debug:
+      required: false
+  - manifest-digest:
+      required: false
+  - tag-name:
+      required: false
+  - blob-digest:
+      required: false
+
 outputs: {}
 runs:
   using: docker
   image: docker://ghcr.io/bloodorangeio/distribution-spec/conformance:34e8255
+  args:
+
+
+      #~/go/src/github.com/opencontainers/distribution-spec(master) » export OCI_NAMESPACE="u/pmengelbert/bad-hair"                                                                                                pme@foal
+      #export OCI_CROSSMOUNT_NAMESPACE="u/pmengelbert/great-hair"
+      #export OCI_USERNAME="pmengelbert"
+      #export OCI_PASSWORD="3fabd6d4acd970792bcad8fga8b91daa"
+      #export OCI_TEST_PULL=1
+      #export OCI_TEST_PUSH=1
+      #export OCI_TEST_CONTENT_DISCOVERY=1
+      #export OCI_TEST_CONTENT_MANAGEMENT=1
+      #export OCI_ROOT_URL="https://bundle.bar"
