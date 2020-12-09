@@ -20,7 +20,10 @@ jobs:
       - name: Prepare
         id: prepare
         run: |
-          VERSION=$(git rev-parse --short HEAD)
+          VERSION=${GITHUB_REF#refs/tags/}
+          if [[ "${VERSION}" == "" ]]; then
+            VERSION=$(git rev-parse --short HEAD)
+          fi
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=ref::ghcr.io/${{ github.repository }}/conformance:${VERSION}
       - name: Docker Build
