@@ -20,8 +20,9 @@ jobs:
       - name: Prepare
         id: prepare
         run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          if [[ "${VERSION}" == "" ]]; then
+          VERSION=${GITHUB_REF#refs/*/}
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          if [[ "${VERSION}" == "${BRANCH_NAME}" ]]; then
             VERSION=$(git rev-parse --short HEAD)
           fi
           echo ::set-output name=version::${VERSION}
